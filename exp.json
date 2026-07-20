@@ -5,7 +5,7 @@
       "start_date": "January 2026",
       "end_date": "Present",
       "location": "Houston, Texas",
-      "roles": [
+      "role": [
         "ML/AI Research Assistant"
       ],
       "responsibilities": [
@@ -28,7 +28,7 @@
       "start_date": "June 2024",
       "end_date": "December 2025",
       "location": "Houston, Texas",
-      "roles": [
+      "role": [
         "Operations Assistant",
         "Sales Representative"
       ],
@@ -60,7 +60,7 @@
       "start_date": "September 2023",
       "end_date": "March 2024",
       "location": "Remote",
-      "roles": [
+      "role": [
         "Marketing Intern",
         "Student Advisor Intern"
       ],

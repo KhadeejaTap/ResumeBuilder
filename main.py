@@ -17,7 +17,11 @@ END_MARKERS = [
     "equal opportunity",
     "privacy policy"
 ]
-
+SUBSECTIONS = {
+    "experience": ["role", "responsibilities"],
+    "leadership": ["role", "responsibilities"],
+    "projects": ["technologies", "responsibilities"]
+}
 # remove unneeded text to make it easier for sentence transformers
 def trim_job_text(text):
     text = text.lower()
@@ -52,6 +56,28 @@ def extract_skills_trafilatura(main_text):
 
     return matched_skills
 
+def embed_exp(json_file, section_heading): # eg (exp.json, projects)
+	with open(json_file, "r") as file:
+		resume = json.load(file)
+	if not resume:
+		raise Exception("resume input wrong or resume is empty (xp bar is low)")
+
+	section_content = resume[section_heading] # section content is
+	res = ""
+	fields = SUBSECTIONS[section_heading]
+	for entry in section_content: # ie for each role or project
+		entry_text = "" # feed this to transfomer
+		for field in fields: # eg role or project title , responsibilities
+			value = entry[field]
+			if isinstance(value, list):
+				if field == "role": # roles can go by multiple titles
+					value = ", ".join(value)
+				else:
+					value = "\n".join(value)
+			entry_text += f"{field}: {value}\n"
+		embedding = model.encode(entry_text)
+		# TO DO - ADD EMBEDDING TO EXP JSON USING TO LIST AND DUMP
+	return res
 def main():
 	# get and try url
 	args = parser.parse_args()
@@ -66,9 +92,10 @@ def main():
 
 	main_text = extract_main_content(html_content)
 	skill_matches = extract_skills_trafilatura(main_text)
-	print(skill_matches)
-	print(main_text)
-	# next - json parsing, sentence transformers embedding for work exp & store, ensure embeddings exist for every
+	#print(skill_matches)
+	#print(main_text)
+	print(embed_exp("exp.json", "experience"))
+	# next -  store embeddings, ensure embeddings exist for every
 	# entry in the json every run, get 1 embedding per post and get similarity score / compare with work exp embeddings
 	# return based on threshold of similarity score or top x . this decides what to pass into the llm
 main()

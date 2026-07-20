@@ -1,1 +1,3 @@
 fetching works but takes a sec
+make a dict even if its short bc easier to maintain down the line than if else for parsing
+is instance(some input, datatype) returns if input is datatype
