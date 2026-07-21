@@ -22,6 +22,7 @@ SUBSECTIONS = {
     "leadership": ["role", "responsibilities"],
     "projects": ["technologies", "responsibilities"]
 }
+MODEL = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 # remove unneeded text to make it easier for sentence transformers
 def trim_job_text(text):
     text = text.lower()
@@ -75,9 +76,11 @@ def embed_exp(json_file, section_heading): # eg (exp.json, projects)
 				else:
 					value = "\n".join(value)
 			entry_text += f"{field}: {value}\n"
-		embedding = model.encode(entry_text)
-		# TO DO - ADD EMBEDDING TO EXP JSON USING TO LIST AND DUMP
-	return res
+		embedding = MODEL.encode(entry_text).tolist()
+		entry["embedding"] = embedding
+	with open(json_file, "w") as file:
+		json.dump(resume, file, indent = 4) # use sql later for more flexible
+	# so embedding is rly long , maybe add to diff json?
 def main():
 	# get and try url
 	args = parser.parse_args()
@@ -90,12 +93,12 @@ def main():
 	except requests.exceptions.RequestException as e:
 		print(f"Error: {e}")
 
-	main_text = extract_main_content(html_content)
-	skill_matches = extract_skills_trafilatura(main_text)
+	#main_text = extract_main_content(html_content)
+	#skill_matches = extract_skills_trafilatura(main_text)
 	#print(skill_matches)
 	#print(main_text)
 	print(embed_exp("exp.json", "experience"))
-	# next -  store embeddings, ensure embeddings exist for every
-	# entry in the json every run, get 1 embedding per post and get similarity score / compare with work exp embeddings
+	# next -  update res funct to recompute embeddings, err handling to ensure embeddings exist for every entry
+	# get 1 embedding per post and get similarity score / compare with work exp embeddings
 	# return based on threshold of similarity score or top x . this decides what to pass into the llm
 main()
