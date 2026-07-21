@@ -1,3 +1,8 @@
 fetching works but takes a sec
 make a dict even if its short bc easier to maintain down the line than if else for parsing
 is instance(some input, datatype) returns if input is datatype
+		if entry["embedding"]: # obv checks if the embedding section has content so raises error when theres no embedding section use entry.get("embedding")
+			print("embedding exists")
+			continue
+change needed - dotn load weights if embeddings are there
+https://jobs.ashbyhq.com/ urls are asking for js , no content extracted
