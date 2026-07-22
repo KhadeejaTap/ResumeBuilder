@@ -6,3 +6,12 @@ is instance(some input, datatype) returns if input is datatype
 			continue
 change needed - dotn load weights if embeddings are there
 https://jobs.ashbyhq.com/ urls are asking for js , no content extracted
+so much to do but want workable demo asap
+
+git rm --cached exp.json skills.json
+a .gitignore file tracks the files u dont wanna push , ensures api keys safe
+check using git status --ignored
+1 get llm writer working
+2 set up a system for choose exp  and add role titles to embedding and therefore similarity score
+-------------
+not important rn:

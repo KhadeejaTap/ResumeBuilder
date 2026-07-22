@@ -4,9 +4,17 @@ import argparse
 import requests
 from bs4 import BeautifulSoup
 import trafilatura
-#get job desc
-parser = argparse.ArgumentParser()
-parser.add_argument("--url", help="job desc")
+from openrouter import OpenRouter
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+
+MODEL = "openrouter/free"
+
+client = OpenRouter(api_key = OPENROUTER_API_KEY)
 
 END_MARKERS = [
     "about us",
@@ -24,6 +32,11 @@ SUBSECTIONS = {
     "projects": ["technologies", "responsibilities"]
 }
 MODEL = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+
+#get job desc
+parser = argparse.ArgumentParser()
+parser.add_argument("--url", help="job desc")
+
 # remove unneeded text to make it easier for sentence transformers
 def trim_job_text(text): # called in extract funct
     text = text.lower()
@@ -108,6 +121,12 @@ def test_similarity_scores(resume_json, html_content):
 	job_embedding = MODEL.encode(main_text)
 	print("similarity scores:", get_similarity_scores(resume_json, job_embedding))
 
+def ai_writer(json_file): # where similarity scores is a dict. call this after get similarity score
+	#test on first item
+	with open(json_file, "r") as file:
+		resume = json.load(file)
+
+	#print()
 
 def main():
 	# get and try url
@@ -122,5 +141,14 @@ def main():
 		print(f"Error: {e}")
 
 	test_similarity_scores("exp.json", html_content)
+	# next use llm to write the resume
+	# make extension
+	response = client.chat.send(
+	    model="openrouter/free",
+	    messages=[
+	        {"role": "user", "content": "Say hello in one sentence."}
+	    ],
+	)
 
+	print(response.choices[0].message.content)
 main()
