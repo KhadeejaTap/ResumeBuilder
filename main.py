@@ -168,7 +168,19 @@ def list_to_text(val):
 		return "\n".join(val)
 	return val
 
-def ai_prompt(entry_info):
+def make_res_json(res_file):
+	template = {
+		"Education":[],
+		"Work Experience": [],
+		"Leadership Experience": [],
+		"Project Experience": [],
+		"Skills": []
+	}
+	with open(res_json, "w") as file:
+		json.dump(template, file, indent=4)
+
+def ai_prompt(entry_info, section, id, res_json):
+	#make or clear existing res.json , dump
 	response = requests.post(
 		url = "https://openrouter.ai/api/v1/chat/completions",
 		headers = {
@@ -177,10 +189,11 @@ def ai_prompt(entry_info):
 		},
 		# finish later FIXME losingmymind
 	)
+
 	return entry_desc
 
 def ai_writer(json_file, chosen_indices, sorted_scores): # where similarity scores is a dict. call this after get similarity score
-	#test on first item
+	#test on first item                  sorted scores has section id and score
 	with open(json_file, "r") as file:
 		resume = json.load(file)
 
@@ -200,7 +213,7 @@ def ai_writer(json_file, chosen_indices, sorted_scores): # where similarity scor
 		entry_info = "" # what we pass to llm
 		entry_info += f"{label}: {role}\nResponsibilities: {responsibilities}"
 		# feed it to ai writer
-		entry_desc = ai_prompt(entry_info)
+		entry_desc = ai_prompt(entry_info, section, id)
 		print(entry_info)
 
 def main():
