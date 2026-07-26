@@ -14,7 +14,7 @@ load_dotenv()
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
-MODEL = "openrouter/free"
+LLMMODEL = "openrouter/free"
 
 client = OpenRouter(api_key = OPENROUTER_API_KEY)
 
@@ -187,10 +187,36 @@ def ai_prompt(entry_info, section, id, res_json):
 			"Authorization": f"Bearer {OPENROUTER_API_KEY}",
 			"Content-Type": "application/json",
 		},
-		# finish later FIXME losingmymind
+		json={
+			"model": LLMMODEL,
+			"messages": [
+				{
+					"role":"system",
+					"content": (
+						"You rewrite resume bullet points. "
+						"Do not invent experience or technologies. "
+						"Emphasize relevant skills. "
+						"Return ONLY valid JSON in this format:\n"
+						"{\n"
+                        '  "responsibilities": [\n'
+                        '    "...",\n'
+                        '    "..."\n'
+                        "  ]\n"
+                        "}"
+					)
+				},
+				{
+					"role":"user",
+					"content": entry_info
+				}
+			]
+		}
 	)
 
-	return entry_desc
+	response.raise_for_status()
+	return json.loads(
+		response.json()["choices"][0]["message"]["content"]
+	)
 
 def ai_writer(json_file, chosen_indices, sorted_scores): # where similarity scores is a dict. call this after get similarity score
 	#test on first item                  sorted scores has section id and score
