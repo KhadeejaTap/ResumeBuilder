@@ -1,4 +1,4 @@
 .env
-exp.json
-skills.json
-run.sh
+scrapped/exp.json
+scrapped/skills.json
+scrapped/run.sh
