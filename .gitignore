@@ -2,3 +2,5 @@
 scrapped/exp.json
 scrapped/skills.json
 scrapped/run.sh
+*.pdf
+*.json
