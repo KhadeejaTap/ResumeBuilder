@@ -1,9 +1,9 @@
-ResumeBuilder
+ResumeBuilder (ehh more like aiapplier)
 
 Why I made this:
-The Simplify extension is heavy. I wanted something very light on my computer.
+The Simplify extension is heavy. I wanted something very light on my computer. Simplify also doesn't allow free resume tailoring, but what if we used openrouter and students put their own API key's in? 
 
-This is not a finished product or too helpful yet, I am still testing and fixing things.
+This is not usable yet, still testing and adding stuff.
 
 How to run and use:
 
