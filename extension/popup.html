@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+  <title>Resume Tailor</title>
+</head>
+<body>
+  <div class="header">
+    <h1>Resume Tailor</h1>
+    <div id="tab-info" class="meta">Detecting tab...</div>
+  </div>
+
+  <div class="controls">
+    <button id="autoapply-btn" class="btn">Auto-Apply</button>
+  </div>
+
+  <div id="status" class="status-box">Ready.</div>
+
+  <div id="apply-results" class="results-box hidden">
+    <div class="section-title">Auto-Apply Log</div>
+    <div id="apply-log" class="apply-log"></div>
+  </div>
+
+  <div class="footer-link">
+    <a href="http://127.0.0.1:8000" target="_blank" class="text-link">Manage Experience Bank</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

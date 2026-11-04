@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Experience Bank</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #111;
+      background: #fafafa;
+      padding: 24px;
+    }
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 24px;
+    }
+    header {
+      border-bottom: 1px solid #eee;
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #111;
+    }
+    p.subtitle {
+      color: #666;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+    .form-section {
+      background: #fdfdfd;
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    h2 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #222;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 12px;
+    }
+    label {
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: #333;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+    input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: #111;
+    }
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+    .btn-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      background: #111;
+      color: #fff;
+      border: 1px solid #111;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #333;
+    }
+    .btn-secondary {
+      background: #fff;
+      color: #333;
+      border-color: #ccc;
+    }
+    .btn-secondary:hover {
+      background: #f0f0f0;
+    }
+    .btn-sm {
+      padding: 4px 8px;
+      font-size: 11px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .btn-danger {
+      background: #fff;
+      color: #b00;
+      border: 1px solid #b00;
+    }
+    .btn-danger:hover {
+      background: #fdd;
+    }
+    .btn-edit {
+      background: #fff;
+      color: #111;
+      border: 1px solid #ccc;
+      margin-right: 4px;
+    }
+    .btn-edit:hover {
+      background: #eee;
+    }
+    .status-msg {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #060;
+      min-height: 18px;
+    }
+    .exp-list {
+      margin-top: 16px;
+    }
+    .exp-card {
+      border: 1px solid #e5e5e5;
+      border-radius: 4px;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: #fff;
+    }
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+    .exp-title {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .exp-company {
+      font-size: 13px;
+      color: #444;
+    }
+    .exp-meta {
+      font-size: 12px;
+      color: #777;
+    }
+    .exp-bullets {
+      margin-top: 8px;
+      padding-left: 18px;
+      font-size: 12px;
+      color: #333;
+    }
+    .exp-bullets li {
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Applicant Profile & Experience Bank</h1>
+      <p class="subtitle">Personal details, Workday address fields, technical skills, and unconstrained work histories.</p>
+    </header>
+
+    <!-- SECTION 1: PERSONAL INFO, ADDRESS & SKILLS (FOR WORKDAY / AUTOAPPLY) -->
+    <div class="form-section">
+      <h2>Workday Contact, Address & Skills</h2>
+      <form id="profile-form">
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="u-first-name">First Name</label>
+            <input type="text" id="u-first-name" required>
+          </div>
+          <div class="form-group">
+            <label for="u-last-name">Last Name</label>
+            <input type="text" id="u-last-name" required>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="u-email">Email</label>
+            <input type="text" id="u-email" required>
+          </div>
+          <div class="form-group">
+            <label for="u-phone">Phone</label>
+            <input type="text" id="u-phone" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="u-street">Street Address (Workday Address Line 1)</label>
+          <input type="text" id="u-street" placeholder="e.g. 1234 Main Street, Apt 5B">
+        </div>
+
+        <div class="grid-4">
+          <div class="form-group">
+            <label for="u-city">City</label>
+            <input type="text" id="u-city" required placeholder="Houston">
+          </div>
+          <div class="form-group">
+            <label for="u-state">State / Region</label>
+            <input type="text" id="u-state" required placeholder="Texas">
+          </div>
+          <div class="form-group">
+            <label for="u-zip">Postal / Zip</label>
+            <input type="text" id="u-zip" placeholder="77004">
+          </div>
+          <div class="form-group">
+            <label for="u-country">Country</label>
+            <input type="text" id="u-country" value="United States">
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="u-linkedin">LinkedIn Profile URL</label>
+            <input type="text" id="u-linkedin" placeholder="linkedin.com/in/username">
+          </div>
+          <div class="form-group">
+            <label for="u-github">GitHub Profile URL</label>
+            <input type="text" id="u-github" placeholder="github.com/username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="u-skills">All Technical Skills (comma-separated, auto-populated from resume)</label>
+          <textarea id="u-skills" placeholder="Python, SQL, React, Git, Linux, PyTorch..."></textarea>
+        </div>
+
+        <button type="submit" class="btn" id="save-profile-btn">Save Contact & Address</button>
+        <span id="profile-status" class="status-msg"></span>
+      </form>
+    </div>
+
+    <!-- SECTION 2: WORK EXPERIENCE FORM -->
+    <div class="form-section" id="form-container">
+      <h2 id="form-heading">Add Work Experience</h2>
+      <form id="exp-form">
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="title">Job Title</label>
+            <input type="text" id="title" required placeholder="e.g. Software Engineer Intern">
+          </div>
+          <div class="form-group">
+            <label for="organization">Company / Organization</label>
+            <input type="text" id="organization" required placeholder="e.g. Google">
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="location">Location (City, State / Remote)</label>
+            <input type="text" id="location" placeholder="e.g. Houston, Texas (or Remote)">
+          </div>
+          <div class="form-group">
+            <label for="dates">Dates / Duration</label>
+            <input type="text" id="dates" required placeholder="e.g. June 2024 – August 2024 (or Present)">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bullets">Detailed Responsibilities & Bullets (one bullet point per line)</label>
+          <textarea id="bullets" placeholder="Engineered scalable backend service...&#10;Reduced latency by 25% through indexing...&#10;Collaborated with product teams on feature rollout..."></textarea>
+        </div>
+
+        <div class="btn-group">
+          <button type="submit" class="btn" id="submit-btn">Save Experience</button>
+          <button type="button" class="btn btn-secondary" id="cancel-btn" style="display: none;" onclick="cancelEdit()">Cancel Edit</button>
+        </div>
+        <div id="status-msg" class="status-msg"></div>
+      </form>
+    </div>
+
+    <!-- SECTION 3: STORED EXPERIENCES -->
+    <div>
+      <h2>Stored Experiences (<span id="exp-count">0</span>)</h2>
+      <div id="exp-list" class="exp-list">
+        Loading experiences...
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let cachedProfile = null;
+    let cachedExperiences = [];
+    let editingIndex = null;
+
+    async function loadProfile() {
+      try {
+        const res = await fetch("/api/profile");
+        if (!res.ok) throw new Error("Failed to load profile");
+        cachedProfile = await res.json();
+
+        // Populate Personal Info & Address
+        document.getElementById("u-first-name").value = cachedProfile.first_name || "";
+        document.getElementById("u-last-name").value = cachedProfile.last_name || "";
+        document.getElementById("u-email").value = cachedProfile.email || "";
+        document.getElementById("u-phone").value = cachedProfile.phone || "";
+
+        const addr = cachedProfile.address || {};
+        document.getElementById("u-street").value = addr.street || "";
+        document.getElementById("u-city").value = addr.city || (cachedProfile.location ? cachedProfile.location.split(",")[0].trim() : "");
+        document.getElementById("u-state").value = addr.state || (cachedProfile.location && cachedProfile.location.includes(",") ? cachedProfile.location.split(",")[1].trim() : "");
+        document.getElementById("u-zip").value = addr.postal_code || "";
+        document.getElementById("u-country").value = addr.country || "United States";
+
+        document.getElementById("u-linkedin").value = cachedProfile.linkedin || "";
+        document.getElementById("u-github").value = cachedProfile.github || "";
+
+        // Flatten skills for display
+        let skillsList = [];
+        if (cachedProfile.skills && typeof cachedProfile.skills === "object" && !Array.isArray(cachedProfile.skills)) {
+          for (const group of Object.values(cachedProfile.skills)) {
+            if (Array.isArray(group)) skillsList.push(...group);
+          }
+        } else if (Array.isArray(cachedProfile.skills)) {
+          skillsList = cachedProfile.skills;
+        }
+        document.getElementById("u-skills").value = skillsList.join(", ");
+
+        // Experiences
+        cachedExperiences = cachedProfile.experience || [];
+        renderExperiences(cachedExperiences);
+      } catch (err) {
+        document.getElementById("exp-list").innerHTML = "<p>Error loading profile. Is server.py running?</p>";
+      }
+    }
+
+    // Save Personal Info & Address
+    document.getElementById("profile-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const statusEl = document.getElementById("profile-status");
+      const btn = document.getElementById("save-profile-btn");
+
+      const skillsRaw = document.getElementById("u-skills").value
+        .split(",")
+        .map(s => s.trim())
+        .filter(s => s.length > 0);
+
+      const payload = {
+        first_name: document.getElementById("u-first-name").value.trim(),
+        last_name: document.getElementById("u-last-name").value.trim(),
+        email: document.getElementById("u-email").value.trim(),
+        phone: document.getElementById("u-phone").value.trim(),
+        address: {
+          street: document.getElementById("u-street").value.trim(),
+          city: document.getElementById("u-city").value.trim(),
+          state: document.getElementById("u-state").value.trim(),
+          postal_code: document.getElementById("u-zip").value.trim(),
+          country: document.getElementById("u-country").value.trim()
+        },
+        location: `${document.getElementById("u-city").value.trim()}, ${document.getElementById("u-state").value.trim()}`.replace(/^,\s*|,\s*$/g, ""),
+        linkedin: document.getElementById("u-linkedin").value.trim(),
+        github: document.getElementById("u-github").value.trim(),
+        skills: skillsRaw
+      };
+
+      btn.disabled = true;
+      statusEl.textContent = "Saving...";
+
+      try {
+        const res = await fetch("/api/profile/personal", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error("Failed to save personal information");
+
+        statusEl.textContent = "Saved successfully.";
+        setTimeout(() => { statusEl.textContent = ""; }, 2500);
+      } catch (err) {
+        statusEl.textContent = "Error: " + err.message;
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    function renderExperiences(experiences) {
+      document.getElementById("exp-count").textContent = experiences.length;
+      const listEl = document.getElementById("exp-list");
+
+      if (experiences.length === 0) {
+        listEl.innerHTML = "<p style='color:#777; font-size:13px;'>No work experiences stored yet.</p>";
+        return;
+      }
+
+      listEl.innerHTML = experiences.map((exp, idx) => `
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-title">${escapeHtml(exp.title)}</div>
+              <div class="exp-company">${escapeHtml(exp.organization)}</div>
+            </div>
+            <div style="text-align: right;">
+              <div class="exp-meta">${escapeHtml(exp.dates)}</div>
+              <div class="exp-meta">${escapeHtml(exp.location || "")}</div>
+              <div style="margin-top: 6px;">
+                <button class="btn-sm btn-edit" onclick="editExperience(${idx})">Edit</button>
+                <button class="btn-sm btn-danger" onclick="deleteExperience(${idx})">Delete</button>
+              </div>
+            </div>
+          </div>
+          ${exp.bullets && exp.bullets.length ? `
+            <ul class="exp-bullets">
+              ${exp.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+            </ul>
+          ` : ""}
+        </div>
+      `).join("");
+    }
+
+    function editExperience(index) {
+      const exp = cachedExperiences[index];
+      if (!exp) return;
+
+      editingIndex = index;
+      document.getElementById("title").value = exp.title || "";
+      document.getElementById("organization").value = exp.organization || "";
+      document.getElementById("location").value = exp.location || "";
+      document.getElementById("dates").value = exp.dates || "";
+      document.getElementById("bullets").value = (exp.bullets || []).join("\n");
+
+      document.getElementById("form-heading").textContent = `Edit Work Experience (#${index + 1}: ${exp.organization})`;
+      document.getElementById("submit-btn").textContent = "Update Experience";
+      document.getElementById("cancel-btn").style.display = "inline-block";
+
+      document.getElementById("form-container").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function cancelEdit() {
+      editingIndex = null;
+      document.getElementById("exp-form").reset();
+      document.getElementById("form-heading").textContent = "Add Work Experience";
+      document.getElementById("submit-btn").textContent = "Save Experience";
+      document.getElementById("cancel-btn").style.display = "none";
+      document.getElementById("status-msg").textContent = "";
+    }
+
+    document.getElementById("exp-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const statusEl = document.getElementById("status-msg");
+      const submitBtn = document.getElementById("submit-btn");
+
+      const rawBullets = document.getElementById("bullets").value
+        .split("\n")
+        .map(b => b.replace(/^[\s•\-\*]+/, "").trim())
+        .filter(b => b.length > 0);
+
+      const payload = {
+        title: document.getElementById("title").value.trim(),
+        organization: document.getElementById("organization").value.trim(),
+        location: document.getElementById("location").value.trim(),
+        dates: document.getElementById("dates").value.trim(),
+        bullets: rawBullets
+      };
+
+      submitBtn.disabled = true;
+      const isUpdating = editingIndex !== null;
+      statusEl.textContent = isUpdating ? "Updating..." : "Saving...";
+
+      const url = isUpdating ? `/api/experience/${editingIndex}` : "/api/experience";
+      const method = isUpdating ? "PUT" : "POST";
+
+      try {
+        const res = await fetch(url, {
+          method: method,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error("Failed to save experience");
+
+        statusEl.textContent = isUpdating ? "Updated successfully." : "Saved successfully.";
+        cancelEdit();
+        await loadProfile();
+        setTimeout(() => { statusEl.textContent = ""; }, 2500);
+      } catch (err) {
+        statusEl.textContent = "Error saving: " + err.message;
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    async function deleteExperience(index) {
+      if (!confirm("Are you sure you want to remove this experience entry?")) return;
+
+      try {
+        const res = await fetch(`/api/experience/${index}`, { method: "DELETE" });
+        if (!res.ok) throw new Error("Failed to delete experience");
+        if (editingIndex === index) {
+          cancelEdit();
+        }
+        await loadProfile();
+      } catch (err) {
+        alert("Error deleting: " + err.message);
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    loadProfile();
+  </script>
+</body>
+</html>

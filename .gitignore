@@ -1,6 +1,30 @@
+# Secrets & Environment
 .env
+.env.*
+
+# Personal Data & Database
+*.db
+*.sqlite
+*.sqlite3
+llm_logs.db
+data.json
+*.json
+!extension/manifest.json
+
+# Resumes & Generated Files
+*.pdf
+output/
+jobs/
+tailored/
+
+# Python Cache & Bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Scrapped legacy files
 scrapped/exp.json
 scrapped/skills.json
 scrapped/run.sh
-*.pdf
-*.json
